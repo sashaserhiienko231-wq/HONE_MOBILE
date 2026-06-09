@@ -34,26 +34,30 @@ class VpnPlatformChannel {
     await _channel.invokeMethod<void>('reconnect');
   }
 
+  Future<Map<String, dynamic>> _invokeMap(String method) async {
+    final result = await _channel.invokeMethod<Map<dynamic, dynamic>?>(method);
+    return Map<String, dynamic>.from(result ?? const <dynamic, dynamic>{});
+  }
+
   Future<Map<String, dynamic>> getStatus() async {
-    final res = await _channel.invokeMapMethod<String, dynamic>('getStatus');
-    return Map<String, dynamic>.from(res);
+    return _invokeMap('getStatus');
   }
 
   Future<Map<String, dynamic>> getTransferStats() async {
-    final res = await _channel.invokeMapMethod<String, dynamic>('getTransferStats');
-    return Map<String, dynamic>.from(res);
+    return _invokeMap('getTransferStats');
   }
 
   Future<Map<String, dynamic>> getCurrentServer() async {
-    final res = await _channel.invokeMapMethod<String, dynamic>('getCurrentServer');
-    return Map<String, dynamic>.from(res);
+    return _invokeMap('getCurrentServer');
   }
 
   Future<Duration?> getSessionDuration() async {
-    final res = await _channel.invokeMapMethod<String, dynamic>('getSessionDuration');
+    final res = await _invokeMap('getSessionDuration');
     final durationMs = res['durationMs'];
-    if (durationMs == null) return null;
-    return Duration(milliseconds: durationMs as int);
+    if (durationMs is int) {
+      return Duration(milliseconds: durationMs);
+    }
+    return null;
   }
 
   Future<void> importWireGuardConfig({
@@ -70,11 +74,4 @@ class VpnPlatformChannel {
   }
 }
 
-extension _MethodChannelX on MethodChannel {
-  Future<Map<K, V>> invokeMapMethod<K, V>(String method) async {
-    final value = await invokeMethod<Map<dynamic, dynamic>>(method);
-    final map = value ?? const <dynamic, dynamic>{};
-    return map.map((key, v) => MapEntry(key as K, v as V));
-  }
-}
 

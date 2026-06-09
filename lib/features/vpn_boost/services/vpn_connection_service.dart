@@ -1,9 +1,9 @@
 import 'dart:async';
 
 import 'package:hone_mobile/features/vpn_boost/models/vpn_models.dart';
-import 'package:hone_mobile/features/vpn_boost/services/vpn_platform_channel.dart';
 
 abstract class VpnProviderGateway {
+
   Future<VpnConnectionSnapshot> connect({
     required VpnServer server,
     required VpnGamingProfile profile,
@@ -19,7 +19,6 @@ abstract class VpnProviderGateway {
 // For now, keep the abstraction in place; the simulated provider will be removed
 // once the Android platform channel is added.
 class VpnProviderGatewayWireGuardAdapter implements VpnProviderGateway {
-  final VpnPlatformChannel _platform = VpnPlatformChannel.instance;
 
   @override
   Future<VpnConnectionSnapshot> connect({
