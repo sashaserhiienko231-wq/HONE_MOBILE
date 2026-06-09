@@ -49,8 +49,10 @@ dependencies:
   animated_text_kit: ^4.2.2
   system_info_plus: ^0.0.5
   display_metrics: ^0.2.0
-  device_apps: ^2.2.0
+
+
   home_widget: ^0.4.0
+
   glassmorphism: ^3.0.0
   flutter_overlay_window: ^0.5.0
   reorderable_grid_view: ^2.2.8
