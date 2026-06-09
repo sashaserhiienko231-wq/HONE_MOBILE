@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Gaming Hub Ultimate</string>
+    <string name="widget_performance_label">Performance</string>
+    <string name="widget_performance_description">CPU, RAM, temperature and FPS</string>
+    <string name="widget_ram_label">RAM</string>
+    <string name="widget_ram_description">Memory usage</string>
+    <string name="widget_storage_label">Storage</string>
+    <string name="widget_storage_description">Storage usage</string>
+    <string name="widget_fps_label">FPS</string>
+    <string name="widget_fps_description">Frame rate</string>
+    <string name="widget_network_label">Network</string>
+    <string name="widget_network_description">Latency</string>
+    <string name="widget_gaming_mode_label">Gaming Mode</string>
+    <string name="widget_gaming_mode_description">Gaming mode status</string>
+</resources>

@@ -1,0 +1,253 @@
+# Miscellaneous
+*.class
+*.log
+*.pyc
+*.swp
+.DS_Store
+.atom/
+.buildlog/
+.history
+.svn/
+migrate_working_dir/
+
+# IntelliJ related
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# The .vscode folder contains launch configuration and tasks you configure in
+# VS Code which you may wish to be included in version control, so this line
+# is commented out by default.
+#.vscode/
+
+# Flutter/Dart/Pub related
+**/doc/api/
+**/ios/Flutter/.last_build_id
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub-cache/
+.pub/
+# /# build/
+
+# Symbolication related
+app.*.symbols
+
+# Obfuscation related
+app.*.map.json
+
+# Android Studio will place build artifacts here
+/android/app/debug
+/android/app/profile
+/android/app/release
+android/build/
+android/.gradle/
+.dart_tool/
+build/
+
+# iOS related
+**/ios/**/*.mode1v3
+**/ios/**/*.mode2v3
+**/ios/**/*.moved-aside
+**/ios/**/*.pbxuser
+**/ios/**/*.perspectivev3
+**/ios/**/*sync/
+**/ios/**/.sconsign.dblite
+**/ios/**/.sconsign.dblite.lock
+**/ios/**/.sconsign.dblite.lock.lock
+**/ios/**/.sconsign.dblite.lock.lock.lock
+**/ios/**/*.xccheckout
+**/ios/**/*.xccheckout
+**/ios/**/.DS_Store
+**/ios/**/.git/
+**/ios/**/.gitignore
+**/ios/**/.gitmodules
+**/ios/**/.hgtags
+**/ios/**/.hgignore
+**/ios/**/.project
+**/ios/**/.settings
+**/ios/**/.idea/
+**/ios/**/.cproject
+**/ios/**/.settings/
+**/ios/**/.metadata/
+**/ios/**/.local/
+**/ios/**/.classpath
+**/ios/**/.cproject
+**/ios/**/.project
+**/ios/**/.settings/
+**/ios/**/.metadata/
+**/ios/**/.local/
+**/ios/**/.classpath
+**/ios/**/.cproject
+**/ios/**/.project
+**/ios/**/.settings/
+**/ios/**/.metadata/
+**/ios/**/.local/
+**/ios/**/.classpath
+**/ios/**/.cproject
+**/ios/**/.project
+**/ios/**/.settings/
+**/ios/**/.metadata/
+**/ios/**/.local/
+**/ios/**/.classpath
+**/ios/**/.cproject
+**/ios/**/.project
+**/ios/**/.settings/
+**/ios/**/.metadata/
+**/ios/**/.local/
+**/ios/**/.classpath
+**/ios/**/.cproject
+**/ios/**/.project
+**/ios/**/.settings/
+**/ios/**/.metadata/
+**/ios/**/.local/
+**/ios/**/.classpath
+**/ios/**/.cproject
+**/ios/**/.project
+**/ios/**/.settings/
+**/ios/**/.metadata/
+**/ios/**/.local/
+
+# Web related
+**/web/
+
+# Windows related
+**/windows/flutter/generated_plugin_registrant.cc
+**/windows/flutter/generated_plugin_registrant.h
+**/windows/flutter/generated_plugins.cmake
+
+# Linux related
+**/linux/flutter/generated_plugin_registrant.cc
+**/linux/flutter/generated_plugin_registrant.h
+**/linux/flutter/generated_plugins.cmake
+
+# macOS related
+**/macos/Flutter/GeneratedPluginRegistrant.swift
+**/macos/Flutter/Flutter-Debug.xcconfig
+**/macos/Flutter/Flutter-Release.xcconfig
+**/macos/Flutter/Flutter-environment.xcconfig
+
+# Coverage
+coverage/
+
+# LCOV
+lcov.info
+
+# Temporary files
+*.tmp
+*.temp
+
+# Log files
+*.log
+
+# Local configuration files
+.env
+.env.local
+.env.development
+.env.production
+
+# Backup files
+*.bak
+*.backup
+
+# Generated files
+generated/
+*.g.dart
+*.freezed.dart
+
+# Test files
+test/.test_coverage
+test/coverage/
+
+# Assets
+assets/fonts/*.ttf
+assets/images/*.png
+assets/images/*.jpg
+assets/images/*.jpeg
+assets/images/*.gif
+assets/images/*.svg
+
+# Keystore files
+*.jks
+*.p8
+*.p12
+*.key
+*.mobileprovision
+*.orig.*
+eclipse-# build/
+
+# External libraries
+**/external/
+
+# Gradle wrapper
+**/gradlew
+**/gradlew.bat
+**/gradle-wrapper.jar
+
+# Local properties
+# local.properties
+
+# Firebase
+google-services.json
+GoogleService-Info.plist
+
+# Sentry
+sentry.properties
+
+# Fastlane
+fastlane/report.xml
+fastlane/Preview.html
+fastlane/screenshots/**/*.png
+fastlane/test_output
+
+# Bundle artifacts
+*.jsbundle
+
+# CocoaPods
+**/ios/Pods/
+**/ios/Podfile.lock
+
+# Carthage
+**/ios/Carthage/
+
+# Ruby / CocoaPods
+/Gemfile.lock
+/Podfile.lock
+
+# Android NDK
+android/app/src/main/jniLibs/
+
+# APK files
+*.apk
+*.aab
+
+# IPA files
+*.ipa
+
+# Build directories
+# build/
+dist/
+
+# IDE files
+*.sublime-project
+*.sublime-workspace
+
+# Package files
+*.tar.gz
+*.zip
+*.rar
+
+# Database files
+*.db
+*.sqlite
+*.sqlite3
+
+# Configuration files with secrets
+secrets.json
+config.json
+
+# Local development
+.local/
+dev/
