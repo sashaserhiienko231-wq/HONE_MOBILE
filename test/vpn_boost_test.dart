@@ -91,22 +91,18 @@ void main() {
       );
     });
 
-    test('Simulated gateway connects with secure status and route metrics',
+    test('WireGuard gateway throws UnimplementedError until runtime exists',
         () async {
       final service = VpnConnectionService();
       addTearDown(service.dispose);
 
-      final snapshot = await service.connect(
-        server: VpnServer.defaultServers.first,
-        profile: VpnGamingProfile.defaults.first,
+      expect(
+        () => service.connect(
+          server: VpnServer.defaultServers.first,
+          profile: VpnGamingProfile.defaults.first,
+        ),
+        throwsA(isA<UnimplementedError>()),
       );
-
-      expect(snapshot.status, equals(VpnConnectionStatus.connected));
-      expect(snapshot.isSecure, isTrue);
-      expect(snapshot.currentIp, startsWith('10.'));
-      expect(snapshot.pingMs, isPositive);
-      expect(snapshot.downloadMbps, isPositive);
-      expect(service.diagnosticLogs, isNotEmpty);
     });
   });
 
@@ -140,30 +136,42 @@ void main() {
       );
     });
 
-    test('Favorites, connect, disconnect, and analytics update state',
+    test('Favorites still work and connect throws UnimplementedError',
         () async {
       final container = ProviderContainer();
       addTearDown(container.dispose);
 
       final notifier = container.read(vpnBoostStateProvider.notifier);
-      final server = container.read(vpnBoostStateProvider).servers.first;
+      final stateBefore = container.read(vpnBoostStateProvider);
+      final server = stateBefore.servers.first;
 
+      // Favorites should update purely in-app.
       notifier.toggleFavorite(server.id);
       expect(
         container.read(vpnBoostStateProvider).favoriteServerIds,
         contains(server.id),
       );
 
+      // Connection is not yet wired (Android WireGuard runtime not implemented).
+      // The notifier catches connection errors internally.
       await notifier.connect(server: server);
-      var state = container.read(vpnBoostStateProvider);
-      expect(state.isConnected, isTrue);
-      expect(state.connection.server?.id, equals(server.id));
 
-      await notifier.disconnect();
-      state = container.read(vpnBoostStateProvider);
-      expect(state.isConnected, isFalse);
-      expect(state.sessionHistory.length, equals(1));
-      expect(state.analytics.sessionCount, equals(1));
+      final stateAfter = container.read(vpnBoostStateProvider);
+      expect(stateAfter.connection.status, equals(VpnConnectionStatus.disconnected));
+      expect(stateAfter.isConnected, isFalse);
+
+      // Diagnostic logs should record the failure.
+      expect(
+        stateAfter.diagnosticLogs.any(
+          (line) => line.contains('VPN connection failed'),
+        ),
+        isTrue,
+      );
+
+      // Analytics/session assertions are intentionally skipped until real
+      // WireGuard runtime exists.
+      expect(stateAfter.sessionHistory, stateBefore.sessionHistory);
+      expect(stateAfter.analytics, stateBefore.analytics);
     });
   });
 }
