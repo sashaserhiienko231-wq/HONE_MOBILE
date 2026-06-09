@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:package_info_plus/package_info_plus.dart';
-import 'package:device_apps/device_apps.dart';
+
 import 'package:hone_mobile/core/models/game_info.dart';
 import 'package:hone_mobile/core/models/game_database.dart';
 
@@ -152,102 +152,18 @@ class GameDatabaseService {
   }
 
   static Future<List<GameInfo>> _scanInstalledApplications() async {
+    // device_apps dependency was removed because its Android integration was
+    // not AGP-8 compatible in this project.
+    //
+    // Temporary stub: keep buildability and return no discovered games.
     if (!Platform.isAndroid) return [];
 
-    try {
-      final List<Application> apps = await DeviceApps.getInstalledApplications(
-        includeAppIcons: true,
-        includeSystemApps: false,
-        onlyAppsWithLaunchIntent: true,
-      );
-
-      final List<GameInfo> games = [];
-      final List<String> gameKeywords = [
-        'game', 'pubg', 'genshin', 'cod', 'mobile', 'legends', 'minecraft', 
-        'roblox', 'freefire', 'brawlstars', 'standoff', 'fortnite', 'asphalt',
-        'subway', 'clash', 'candy', 'among', 'pokemon', 'wildrift', 'pubgm'
-      ];
-
-      for (var app in apps) {
-        bool isLikelyGame = false;
-        
-        // Method 1: Check if Android OS marks it as a game (if available)
-        if (app.category == ApplicationCategory.game) {
-          isLikelyGame = true;
-        }
-
-        // Method 2: Check package name and app name for keywords
-        final String nameLower = app.appName.toLowerCase();
-        final String packageLower = app.packageName.toLowerCase();
-        
-        if (!isLikelyGame) {
-          for (var keyword in gameKeywords) {
-            if (nameLower.contains(keyword) || packageLower.contains(keyword)) {
-              isLikelyGame = true;
-              break;
-            }
-          }
-        }
-
-        // Method 3: Known popular game package patterns
-        if (!isLikelyGame) {
-          if (packageLower.startsWith('com.tencent.') || 
-              packageLower.startsWith('com.mihoyo.') ||
-              packageLower.startsWith('com.activision.') ||
-              packageLower.startsWith('com.garena.') ||
-              packageLower.startsWith('com.supercell.') ||
-              packageLower.startsWith('com.mojang.')) {
-            isLikelyGame = true;
-          }
-        }
-
-        if (isLikelyGame) {
-          Uint8List? icon;
-          if (app is ApplicationWithIcon) {
-            icon = app.icon;
-          }
-
-          games.add(GameInfo(
-            packageName: app.packageName,
-            appName: app.appName,
-            category: _inferCategory(app),
-            version: app.versionName ?? '1.0.0',
-            versionCode: app.versionCode,
-            isSystemApp: app.systemApp,
-            isGame: true,
-            installTime: DateTime.now(), 
-            updateTime: DateTime.now(),
-            size: 0, 
-            performanceProfile: GamePerformanceProfile.balanced(),
-            icon: icon,
-          ));
-        }
-      }
-
-      return games;
-    } catch (e) {
-      debugPrint('Error scanning installed apps: $e');
-      return [];
-    }
+    debugPrint('Game scanning is unavailable (device_apps removed).');
+    return const <GameInfo>[];
   }
 
-  static String _inferCategory(Application app) {
-    final name = app.appName.toLowerCase();
-    
-    if (name.contains('shooter') || name.contains('pubg') || name.contains('cod') || name.contains('fire') || name.contains('battle')) {
-      return 'FPS';
-    }
-    if (name.contains('legend') || name.contains('moba') || name.contains('rift') || name.contains('arena')) {
-      return 'MOBA';
-    }
-    if (name.contains('rpg') || name.contains('impact') || name.contains('quest') || name.contains('fantasy')) {
-      return 'RPG';
-    }
-    if (name.contains('race') || name.contains('asphalt') || name.contains('drive') || name.contains('speed')) {
-      return 'Racing';
-    }
-    return 'Game';
-  }
+
+
 
   static Future<void> _saveLocalData() async {
     try {
